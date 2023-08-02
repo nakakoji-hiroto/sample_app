@@ -9,10 +9,12 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     if @list.save #データをデータベースに保存するためのsaveメソッド実行
       # 対象のカラムにデータが入力されていればsaveメソッドでtrueが返される。
+      flash[:notice] = "投稿に成功しました。"
       redirect_to list_path(@list.id) #詳細画面へリダイレクト
     else
       #対象のカラムにデータが入力されていなければ、saveメソッドでfalseが返される。
       #新規投稿ページを再表示する。
+      flash.now[:alert] = "投稿に失敗しました"
       render :new
     end
   end
